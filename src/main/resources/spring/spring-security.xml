@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+   <!--use-expressions 表示access可以使用表达式 不用表达式多个角色用,连接-->
+    <http auto-config='true'>
+        <!--<intercept-url pattern="/index.html" access="ROLE_STUDENT"/>-->
+        <intercept-url pattern="/index.jsp" access="ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMIN"/>
+        <!--拒绝访问的跳转页-->
+        <!--登录页面配置 这里的映射的是前端页面 用户和密码的名称-->
+        <form-login login-page="/login.jsp" default-target-url="/index.jsp"
+                    authentication-failure-url="/login.jsp"
+                    always-use-default-target="true"
+                    login-processing-url="/j-spring-security-check"
+                    username-parameter="username"
+                    password-parameter="password"/>
+        <!--注销配置-->
+        <logout logout-url="/logout" logout-success-url="/login.jsp" invalidate-session="true"/>
+    </http>
+
+    <!--登录 处理配置-->
+    <authentication-manager>
+        <authentication-provider user-service-ref="userLoginServiceImpl">
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

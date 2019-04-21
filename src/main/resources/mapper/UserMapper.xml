@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanxia.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.sanxia.po.User">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_psd" jdbcType="VARCHAR" property="userPsd"/>
+        <result column="info_table_name" jdbcType="VARCHAR" property="infoTableName"/>
+        <result column="info_uuid" jdbcType="VARCHAR" property="infoUuid"/>
+        <result column="role_uuid" jdbcType="VARCHAR" property="roleUuid"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, uuid, user_name, user_psd, info_table_name, info_uuid, role_uuid
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.sanxia.po.User">
+    insert into user (user_id, uuid, user_name, 
+      user_psd, info_table_name, info_uuid, 
+      role_uuid)
+    values (#{userId,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPsd,jdbcType=VARCHAR}, #{infoTableName,jdbcType=VARCHAR}, #{infoUuid,jdbcType=VARCHAR}, 
+      #{roleUuid,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sanxia.po.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="uuid != null">
+                uuid,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userPsd != null">
+                user_psd,
+            </if>
+            <if test="infoTableName != null">
+                info_table_name,
+            </if>
+            <if test="infoUuid != null">
+                info_uuid,
+            </if>
+            <if test="roleUuid != null">
+                role_uuid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPsd != null">
+                #{userPsd,jdbcType=VARCHAR},
+            </if>
+            <if test="infoTableName != null">
+                #{infoTableName,jdbcType=VARCHAR},
+            </if>
+            <if test="infoUuid != null">
+                #{infoUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="roleUuid != null">
+                #{roleUuid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sanxia.po.User">
+        update user
+        <set>
+            <if test="uuid != null">
+                uuid = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPsd != null">
+                user_psd = #{userPsd,jdbcType=VARCHAR},
+            </if>
+            <if test="infoTableName != null">
+                info_table_name = #{infoTableName,jdbcType=VARCHAR},
+            </if>
+            <if test="infoUuid != null">
+                info_uuid = #{infoUuid,jdbcType=VARCHAR},
+            </if>
+            <if test="roleUuid != null">
+                role_uuid = #{roleUuid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sanxia.po.User">
+    update user
+    set uuid = #{uuid,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_psd = #{userPsd,jdbcType=VARCHAR},
+      info_table_name = #{infoTableName,jdbcType=VARCHAR},
+      info_uuid = #{infoUuid,jdbcType=VARCHAR},
+      role_uuid = #{roleUuid,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+
+    <sql id="user_and_role_List">
+    u.user_id, u.uuid, u.user_name, u.user_psd, u.info_table_name, u.info_uuid, u.role_uuid,
+    r.id r_id,
+	r.uuid r_uuid,
+	r. NAME r_name,
+	r.secrity_name r_secrity_name
+  </sql>
+    <resultMap id="userResulrMap" type="com.sanxia.po.User">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_psd" jdbcType="VARCHAR" property="userPsd"/>
+        <result column="info_table_name" jdbcType="VARCHAR" property="infoTableName"/>
+        <result column="info_uuid" jdbcType="VARCHAR" property="infoUuid"/>
+        <result column="role_uuid" jdbcType="VARCHAR" property="roleUuid"/>
+        <association property="role" javaType="com.sanxia.po.Role">
+            <id column="r_id" jdbcType="INTEGER" property="id"/>
+            <result column="r_uuid" jdbcType="VARCHAR" property="uuid"/>
+            <result column="r_name" jdbcType="VARCHAR" property="name"/>
+            <result column="r_secrity_name" jdbcType="VARCHAR" property="secrityName"/>
+        </association>
+    </resultMap>
+    <select id="findUserByUserName" parameterType="java.lang.String" resultMap="userResulrMap">
+    SELECT
+	  <include refid="user_and_role_List"/>
+	FROM
+	  user u
+    INNER JOIN role r ON u.role_uuid = r.uuid
+    WHERE
+      u.user_name = #{username}
+  </select>
+
+    <delete id="deleteByInfoUuid" parameterType="java.lang.String">
+        delete from user where user.info_uuid=#{InfoUuid}
+    </delete>
+</mapper>

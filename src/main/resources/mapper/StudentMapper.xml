@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanxia.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.sanxia.po.Student">
+    <id column="stu_num" jdbcType="INTEGER" property="stuNum" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="college" jdbcType="VARCHAR" property="college" />
+    <result column="profession" jdbcType="VARCHAR" property="profession" />
+    <result column="in_sch_year" jdbcType="VARCHAR" property="inSchYear" />
+    <result column="stu_class" jdbcType="VARCHAR" property="stuClass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stu_num, uuid, user_uuid, stu_name, age, sex, phone_num, college, profession, in_sch_year, 
+    stu_class
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where stu_num = #{stuNum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where stu_num = #{stuNum,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sanxia.po.Student">
+    insert into student (stu_num, uuid, user_uuid, 
+      stu_name, age, sex, 
+      phone_num, college, profession, 
+      in_sch_year, stu_class)
+    values (#{stuNum,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{userUuid,jdbcType=VARCHAR}, 
+      #{stuName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, 
+      #{phoneNum,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{inSchYear,jdbcType=VARCHAR}, #{stuClass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sanxia.po.Student" useGeneratedKeys="true" keyProperty="stuNum">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuNum != null">
+        stu_num,
+      </if>
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="userUuid != null">
+        user_uuid,
+      </if>
+      <if test="stuName != null">
+        stu_name,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="phoneNum != null">
+        phone_num,
+      </if>
+      <if test="college != null">
+        college,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="inSchYear != null">
+        in_sch_year,
+      </if>
+      <if test="stuClass != null">
+        stu_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuNum != null">
+        #{stuNum,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuName != null">
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null">
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="inSchYear != null">
+        #{inSchYear,jdbcType=VARCHAR},
+      </if>
+      <if test="stuClass != null">
+        #{stuClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sanxia.po.Student">
+    update student
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuName != null">
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null">
+        college = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="inSchYear != null">
+        in_sch_year = #{inSchYear,jdbcType=VARCHAR},
+      </if>
+      <if test="stuClass != null">
+        stu_class = #{stuClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stu_num = #{stuNum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sanxia.po.Student">
+    update student
+    set uuid = #{uuid,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      stu_name = #{stuName,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      college = #{college,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      in_sch_year = #{inSchYear,jdbcType=VARCHAR},
+      stu_class = #{stuClass,jdbcType=VARCHAR}
+    where stu_num = #{stuNum,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryStudentList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from student
+  </select>
+</mapper>

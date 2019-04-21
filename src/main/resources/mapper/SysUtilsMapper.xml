@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sanxia.dao.SysUtilsMapper">
+    <select id="findUuid" resultType="java.lang.String">
+     SELECT REPLACE(UUID(), '-', '')
+    </select>
+
+    <select id="getSystemDate" resultType="java.sql.Timestamp">
+        SELECT now()
+    </select>
+</mapper>

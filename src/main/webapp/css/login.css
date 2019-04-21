@@ -1,0 +1,17 @@
+/*登录文本框边框*/
+#textfield-1010-triggerWrap,#textfield-1011-triggerWrap{
+    border-width: 0 0 0 0;
+}
+/*登录文本框 label和文本框边框*/
+#textfield-1010,#textfield-1011{
+    /*border-width: 0 0 1px 0;*/
+    border-bottom: #a5a5a5 solid 1px;
+}
+/*文本框提示内容颜色*/
+input::-webkit-input-placeholder{
+    color:#a5a5a5;
+}
+/*登录表单头 背景*/
+#form-1009_header{
+    background-color: #fff;
+}
