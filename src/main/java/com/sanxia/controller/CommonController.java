@@ -27,7 +27,7 @@ public class CommonController {
     @Resource
     private CommonService commonService;
 
-
+//zhuyanxiugaiceshi
     @RequestMapping("/findCurrentUserInfo")
     @ResponseBody
     public Map<String, Object> findCurrentUserInfo() {
